@@ -1,1 +1,78 @@
-/usr/bin/lights
+#!/usr/bin/env python3
+
+import asyncio
+import sys
+
+from pywizlight import wizlight, PilotBuilder#, discovery
+
+SCENES = {
+    "ocean":  1,
+    "romance":  2,
+    "sunset":  3,
+    "party":  4,
+    "fireplace":  5,
+    "cozy":  6,
+    "forest":  7,
+    "pastel":  8,
+    "wakeup":  9,
+    "bedtime":  10,
+    "warmwhite":  11,
+    "daylight":  12,
+    "coolwhite":  13,
+    "nightlight":  14,
+    "focus":  15,
+    "relax":  16,
+    "truecolors":  17,
+    "tvtime":  18,
+    "plantgrowth":  19,
+    "spring":  20,
+    "summer":  21,
+    "fall":  22,
+    "deepdive":  23,
+    "jungle":  24,
+    "mojito":  25,
+    "club":  26,
+    "christmas":  27,
+    "halloween":  28,
+    "candlelight":  29,
+    "goldenwhite":  30,
+    "pulse":  31,
+    "steampunk":  32,
+    "rhythm":  1000,
+}
+
+async def main():
+    args = sys.argv[1:]
+    arg = args[0]
+    # Discover all bulbs in the network via broadcast datagram (UDP)
+    # bulbs = await discovery.discover_lights(broadcast_space="192.168.4.255", wait_time=3.0)
+    bulbs = ["192.168.4.35", "192.168.4.50"]
+
+    if arg == "scenes":
+        for scene in SCENES:
+            print(scene)
+    else:
+        for bulb in bulbs:
+            light = wizlight(bulb)
+            state = await light.updateState()                
+            if arg == "on":
+                await light.turn_on()
+            elif arg == "off":
+                await light.turn_off()
+            elif arg == "red":
+                await light.turn_on(PilotBuilder(rgb = (255, 0, 0)))
+            elif arg == "blue":
+                await light.turn_on(PilotBuilder(rgb = (0, 0, 255)))
+            elif arg == "purple":
+                await light.turn_on(PilotBuilder(rgb = (255, 0, 255)))
+            else:
+                await light.turn_on(PilotBuilder(scene = SCENES[ arg ]))
+
+        # if (state.get_state()):
+        #     await bulb.turn_off()
+        # else:
+        #     await bulb.turn_on()
+        # await bulb.turn_on()
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
