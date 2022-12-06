@@ -1,0 +1,4 @@
+#!/bin/sh
+killall redshift
+sleep 3
+redshift -g 0.8:0.5:0.3

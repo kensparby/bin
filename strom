@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+    echo "Youtube video ID: "
+    read id
+elif [[ $1 = "list" ]]; then
+    echo "atmosambient | chillsynth | datawave | jazz | lofigirl | nightride | retrowave | summer | vaporfunk"
+    exit 1
+elif [[ $1 = "jazz" ]]; then
+    id="Dx5qFachd3A"
+elif [[ $1 = "lofigirl" ]]; then
+    id="jfKfPfyJRdk"
+elif [[ $1 = "vaporfunk" ]]; then
+    id="HuzAwhT3zQs"
+elif [[ $1 = "chillsynth" ]]; then
+    id="UedTcufyrHc"
+elif [[ $1 = "retrowave" ]]; then
+    id="9P23oE6ekwQ"
+elif [[ $1 = "summer" ]]; then
+    id="g1UVhexTLWU"
+elif [[ $1 = "atmosambient" ]]; then
+    id="AEkEjX4P_S0"
+elif [[ $1 = "nightride" ]]; then
+    id="cZRj9Sk0IPc"
+elif [[ $1 = "datawave" ]]; then
+    id="Y9q6RYg2Pdg"
+else
+    id=$1
+fi
+
+mpv --profile=stream --sub=no "https://youtube.com/watch?v=$id"
