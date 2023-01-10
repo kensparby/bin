@@ -41,7 +41,14 @@ SCENES = {
     "rhythm":  1000,
 }
 
+COLORS = {
+        "red": (255, 0, 0),
+        "blue": (0, 0, 255),
+        "purple": (255, 0, 255)
+        }
+
 async def main():
+    del wizlight.__del__ # Removes error caused by pywizlight using deprecated functions. May be removed in the future
     args = sys.argv[1:]
     arg = args[0]
     # Discover all bulbs in the network via broadcast datagram (UDP)
@@ -49,24 +56,39 @@ async def main():
     bulbs = ["192.168.4.35", "192.168.4.50"]
 
     if arg == "scenes":
+        count = 1;
+        print('SCENES\n======')
         for scene in SCENES:
-            print(scene)
+            if count % 3 == 0:
+                print(f'{scene:<16}')
+            else:
+                print(f'{scene:<16}', end="")
+            count += 1
+        print('\n', end="")
+        print('COLORS\n======')
+        count = 1
+        for color in COLORS:
+            if count % 3 == 0:
+                print(f'{color:<16}')
+            else:
+                print(f'{color:<16}', end="")
+            count += 1
+        
     else:
         for bulb in bulbs:
             light = wizlight(bulb)
-            state = await light.updateState()                
-            if arg == "on":
+            #state = await light.updateState()
+            if arg in ['on', 'no']:
                 await light.turn_on()
             elif arg == "off":
                 await light.turn_off()
-            elif arg == "red":
-                await light.turn_on(PilotBuilder(rgb = (255, 0, 0)))
-            elif arg == "blue":
-                await light.turn_on(PilotBuilder(rgb = (0, 0, 255)))
-            elif arg == "purple":
-                await light.turn_on(PilotBuilder(rgb = (255, 0, 255)))
-            else:
+            elif arg in COLORS:
+                await light.turn_on(PilotBuilder(rgb = COLORS[ arg ]))
+            elif arg in SCENES:
                 await light.turn_on(PilotBuilder(scene = SCENES[ arg ]))
+            else:
+                print('Invalid argument. Pass `scenes` to see your options.')
+                sys.exit(1)
 
         # if (state.get_state()):
         #     await bulb.turn_off()
@@ -74,5 +96,6 @@ async def main():
         #     await bulb.turn_on()
         # await bulb.turn_on()
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
+#loop = asyncio.get_running_loop()
+#loop.run_until_complete(main())
+asyncio.run(main())
