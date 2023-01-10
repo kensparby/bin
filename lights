@@ -49,8 +49,12 @@ COLORS = {
 
 async def main():
     del wizlight.__del__ # Removes error caused by pywizlight using deprecated functions. May be removed in the future.
-    args = sys.argv[1:]
-    arg = args[0]
+    if len(sys.argv) > 1:
+        args = sys.argv[1:]
+        arg = args[0]
+    else:
+        arg = "scenes"
+
     # Discover all bulbs in the network via broadcast datagram (UDP)
     # bulbs = await discovery.discover_lights(broadcast_space="192.168.4.255", wait_time=3.0)
     bulbs = ["192.168.4.35", "192.168.4.50"] # Hardcoded for my lights, to skip the wait
