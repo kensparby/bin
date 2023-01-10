@@ -8,7 +8,7 @@ xcolor -s
 
 CLR=$(xclip -o -sel clip)
 
-# Rough check of lightness. If the hex is comprised entirely of numbers it is likely dark and needs light text.
+# Rough check of lightness. If the hex is comprised entirely of numbers it is likely skewed towards dark and needs light text.
 re='^#[a-fA-F]+'
 if ! [[ $CLR =~ $re ]]; then
     notify-send -h "string:bgcolor:$CLR" -h "string:fgcolor:#eeeeee" $CLR

@@ -1,1 +1,5 @@
+#!/bin/sh
+# Lets the user select an area of their screen with the mouse, which is then saved to `/tmp`
+# with the current time, and then copied to the clipboard automatically.
+
 scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'

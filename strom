@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Short thing to stream various favorite Youtube streams from keywords
+
 if [[ $# -eq 0 ]]; then
     echo "Youtube video ID: "
     read id
