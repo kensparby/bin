@@ -7,7 +7,7 @@ if [[ $# -eq 0 ]]; then
     echo "Youtube video ID: "
     read id
 elif [[ $1 = "list" ]]; then
-    echo "atmosambient | chillsynth | datawave | jazz | lofigirl | nightride | retrowave | summer | vaporfunk"
+    echo -e "atmosambient | chillsynth | vaporfunk | jazz   | lofigirl | spaceambient\nnightride    | datawave   | retrowave | summer | starship | lofisynth"
     exit 1
 elif [[ $1 = "jazz" ]]; then
     id="Dx5qFachd3A"
@@ -22,11 +22,18 @@ elif [[ $1 = "retrowave" ]]; then
 elif [[ $1 = "summer" ]]; then
     id="g1UVhexTLWU"
 elif [[ $1 = "atmosambient" ]]; then
-    id="AEkEjX4P_S0"
+#    id="AEkEjX3P_S0"
+    id="m4e1GYa_-iA"
 elif [[ $1 = "nightride" ]]; then
     id="cZRj9Sk0IPc"
 elif [[ $1 = "datawave" ]]; then
     id="Y9q6RYg2Pdg"
+elif [[ $1 = "starship" ]]; then
+    id="gpvznAiKblU"
+elif [[ $1 = "lofisynth" ]]; then
+    id="MVPTGNGiI-4"
+elif [[ $1 = "spaceambient" ]]; then
+    id="tNkZsRW7h2c"
 else
     id=$1
 fi
