@@ -16,7 +16,8 @@ for dir in "${directories[@]}"; do
 done
 
 if [ "$found" = true ]; then
-  exit 1
-else 
   exit 0
+else 
+  echo "Not found" >&2
+  exit 1
 fi
