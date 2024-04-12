@@ -83,7 +83,6 @@ async def main():
             light = wizlight(bulb)
             #state = await light.updateState()
             if arg in ['on', 'no']:
-                await light.turn_off()
                 await light.turn_on()
             elif arg == "off":
                 await light.turn_off()
